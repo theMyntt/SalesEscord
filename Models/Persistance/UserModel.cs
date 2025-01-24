@@ -17,6 +17,7 @@ namespace SalesEscord.Models.Persistance
         public string Email { get; set; } = string.Empty;
 
         [Column("TX_PASSWORD")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
 
         [Column("TX_ROLE")]
