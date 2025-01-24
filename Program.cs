@@ -6,6 +6,8 @@ namespace SalesEscord
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json");
+
             // Add services to the container.
             builder.Services.AddServices(builder.Configuration);
             builder.Services.AddControllersWithViews();
