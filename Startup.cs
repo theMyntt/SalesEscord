@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using SalesEscord.Context;
 using SalesEscord.Handlers;
 using SalesEscord.Interfaces;
@@ -19,9 +20,28 @@ namespace SalesEscord
                 });
             });
 
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Login";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                    options.Cookie.Name = "auth-cookie";
+                });
+            services.AddAuthorization();
+
             services.AddScoped<IBtoaHandler, BtoaHandler>();
 
             return services;
+        }
+
+        public static IApplicationBuilder UseServices(this IApplicationBuilder app)
+        {
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            return app;
         }
     }
 }

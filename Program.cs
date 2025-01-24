@@ -19,6 +19,9 @@ namespace SalesEscord
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseServices();
+
             app.UseStaticFiles();
 
             app.UseRouting();
