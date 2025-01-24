@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesEscord.Context;
+using SalesEscord.Handlers;
+using SalesEscord.Interfaces;
 
 namespace SalesEscord
 {
@@ -16,6 +18,8 @@ namespace SalesEscord
                     m.MigrationsAssembly(typeof(DatabaseContext).Assembly.FullName);
                 });
             });
+
+            services.AddScoped<IBtoaHandler, BtoaHandler>();
 
             return services;
         }
