@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SalesEscord.Context;
 using SalesEscord.Handlers;
 using SalesEscord.Interfaces;
+using SalesEscord.Services;
 
 namespace SalesEscord
 {
@@ -31,6 +32,7 @@ namespace SalesEscord
             services.AddAuthorization();
 
             services.AddScoped<IBtoaHandler, BtoaHandler>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }
