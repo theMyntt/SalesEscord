@@ -6,16 +6,16 @@ namespace SalesEscord.Handlers
     {
         public string Decrypt(string input)
         {
-            var bytes = System.Text.Encoding.UTF8.GetBytes(input);
+            var bytes = Convert.FromBase64String(input);
 
-            return Convert.ToBase64String(bytes);
+            return System.Text.Encoding.UTF8.GetString(bytes);
         }
 
         public string Encrypt(string input)
         {
-            var bytes = Convert.FromBase64String(input);
+            var bytes = System.Text.Encoding.UTF8.GetBytes(input);
 
-            return System.Text.Encoding.UTF8.GetString(bytes);
+            return Convert.ToBase64String(bytes);
         }
     }
 }
