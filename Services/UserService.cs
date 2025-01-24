@@ -29,7 +29,7 @@ namespace SalesEscord.Services
             password = string.Empty;
 
             var user = await _users.FirstOrDefaultAsync(u => 
-                u.Email.Equals(email.ToLower(), StringComparison.CurrentCultureIgnoreCase) 
+                u.Email.ToLower() == email.ToLower().Trim()
                 && u.Password == encryptPassword.Trim());
 
             if (user == null) {
