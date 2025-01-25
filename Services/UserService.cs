@@ -33,14 +33,14 @@ namespace SalesEscord.Services
                 && u.Password == encryptPassword.Trim());
 
             if (user == null) {
-                throw new UnauthorizedException("User Not Found");
+                throw new UnauthorizedException("No user found with this email and password.");
             }
 
             user.Password = string.Empty;
 
             if (user.IsBlocked)
             {
-                throw new ForbiddenException("User Is Blocked");
+                throw new ForbiddenException("This user is blocked.");
             }
 
             var claims = new List<Claim>()
