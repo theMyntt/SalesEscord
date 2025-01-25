@@ -6,7 +6,19 @@
 	<div class="d-flex flex-grow-1 justify-content-center align-items-center">
 		<div class="w-50 border rounded-3 d-flex flex-column gap-3 p-4">
 			<h2 class="text-danger">Uh oh, you dont have access to here.</h2>
+			<p id="timer" class="small">We will redirect you in: 5 seconds</p>
 			<p class="text-danger"><b>Error 403</b></p>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	let timer = 5;
+	setInterval(() => {
+		timer -= 1;
+		document.getElementById("timer").textContent = `We will redirect you in: ${timer} seconds`;
+	}, 1000);
+	setTimeout(() => {		
+		history.back();
+	}, 5000);
+</script>
