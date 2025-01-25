@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SalesEscord.DTOs;
 using SalesEscord.Exceptions;
@@ -20,6 +21,7 @@ namespace SalesEscord.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Forbidden()
         {
             return View();
