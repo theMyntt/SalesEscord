@@ -22,6 +22,9 @@ namespace SalesEscord.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginDTO dto)
         {
+            if (!ModelState.IsValid)
+                return View(dto);
+
             var claims = await _userService.Login(dto.Email, dto.Password);
 
             await HttpContext.SignInAsync(claims);
