@@ -28,6 +28,7 @@ namespace SalesEscord
                     options.LoginPath = "/Login";
                     options.ExpireTimeSpan = TimeSpan.FromDays(1);
                     options.Cookie.Name = "auth-cookie";
+                    options.AccessDeniedPath = "/Login/Forbidden";
                 });
             services.AddAuthorization();
 

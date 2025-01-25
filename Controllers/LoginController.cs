@@ -20,6 +20,11 @@ namespace SalesEscord.Controllers
             return View();
         }
 
+        public IActionResult Forbidden()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Index(LoginDTO dto)
         {
