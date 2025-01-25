@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using SalesEscord.DTOs;
+using SalesEscord.Exceptions;
 using SalesEscord.Interfaces;
 
 namespace SalesEscord.Controllers
@@ -25,11 +26,19 @@ namespace SalesEscord.Controllers
             if (!ModelState.IsValid)
                 return View(dto);
 
-            var claims = await _userService.Login(dto.Email, dto.Password);
+            try
+            {
+                var claims = await _userService.Login(dto.Email, dto.Password);
 
-            await HttpContext.SignInAsync(claims);
+                await HttpContext.SignInAsync(claims);
 
-            return LocalRedirect("/");
+                return LocalRedirect("/");
+            } 
+            catch (HttpException ex)
+            {
+                ModelState.AddModelError("Password", ex.Message);
+                return View(dto);
+            } 
         }
     }
 }
