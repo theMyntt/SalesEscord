@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesEscord.Context;
 using SalesEscord.Interfaces;
+using SalesEscord.Models;
 using SalesEscord.Models.Persistance;
 
 namespace SalesEscord.Services
@@ -28,14 +29,27 @@ namespace SalesEscord.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<SalesModel>> FindAsync(int page, int limit)
+        public async Task<SalesViewModel> FindAsync(int page, int limit)
         {
             var skip = (page - 1) * limit;
 
-            return await _sales
+            var sales = await _sales
                 .Skip(skip)
                 .Take(limit)
                 .ToListAsync();
+
+            var totalSales = await _sales
+                .CountAsync();
+
+            var totalPages = (int)Math.Ceiling((double)totalSales / limit);
+
+            return new SalesViewModel
+            {
+                Sales = sales,
+                Page = page,
+                TotalSales = totalSales,
+                TotalPages = totalPages
+            };
         }
 
         public async Task<IEnumerable<SalesModel>> FindAsync()
