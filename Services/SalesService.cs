@@ -16,14 +16,16 @@ namespace SalesEscord.Services
             _sales = _context.Set<SalesModel>();
         }
 
-        public Task CreateAsync()
+        public async Task CreateAsync(SalesModel sale)
         {
-            throw new NotImplementedException();
+            await _sales.AddAsync(sale);
+            await _context.SaveChangesAsync();
         }
 
-        public Task EditAsync()
+        public async Task EditAsync(SalesModel sale)
         {
-            throw new NotImplementedException();
+            _sales.Update(sale);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<SalesModel>> FindAsync(int page, int limit)

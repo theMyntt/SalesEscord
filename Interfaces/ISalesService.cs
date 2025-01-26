@@ -6,7 +6,7 @@ namespace SalesEscord.Interfaces
     {
         Task<IEnumerable<SalesModel>> FindAsync(int page, int limit);
         Task<IEnumerable<SalesModel>> FindAsync();
-        Task CreateAsync();
-        Task EditAsync();
+        Task CreateAsync(SalesModel sale);
+        Task EditAsync(SalesModel sale);
     }
 }
