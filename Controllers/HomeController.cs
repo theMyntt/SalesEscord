@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SalesEscord.DTOs;
+using SalesEscord.Interfaces;
 using SalesEscord.Models;
 
 namespace SalesEscord.Controllers
@@ -8,16 +10,26 @@ namespace SalesEscord.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ISalesService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ISalesService service)
         {
-            _logger = logger;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index([FromQuery] FindSalesDTO dto)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var sales = await _service.FindAsync(dto.Page, dto.Limit);
+
+            ViewBag.Page = dto.Page;
+            ViewBag.Limit = dto.Limit;
+
+            return View(sales);
         }
 
         public IActionResult Privacy()
