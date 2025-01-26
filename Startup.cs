@@ -34,6 +34,7 @@ namespace SalesEscord
 
             services.AddScoped<IBtoaHandler, BtoaHandler>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISalesService, SalesService>();
 
             return services;
         }
