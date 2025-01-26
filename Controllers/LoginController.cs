@@ -39,7 +39,7 @@ namespace SalesEscord.Controllers
 
                 await HttpContext.SignInAsync(claims);
 
-                return LocalRedirect("/");
+                return LocalRedirect("/?page=1&limit=10");
             } 
             catch (HttpException ex)
             {
