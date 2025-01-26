@@ -5,44 +5,46 @@
 
 <h2>Welcome again, <br /> @User.Identity.Name</h2>
 
-<div class="container">
-	@if (Model.Sales.Any())
-	{
-		<table class="table bg-light">
-			<thead class="bg-secondary text-white">
+
+@if (Model.Sales.Any())
+{
+	<table class="table bg-light">
+		<thead class="bg-secondary text-white">
+			<tr>
+				<th scope="col">Product</th>
+				<th scope="col">Final Price</th>
+				<th scope="col">Sold On</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var sale in Model.Sales)
+			{
 				<tr>
-					<th scope="col">Product</th>
-					<th scope="col">Final Price</th>
-					<th scope="col">Sold On</th>
+					<td>@sale.ProductName</td>
+					<td>USD $@sale.FinalPrice</td>
+					<td>@sale.SoldOn</td>
 				</tr>
-			</thead>
-			<tbody>
-				@foreach (var sale in Model.Sales)
-				{
-					<tr>
-						<td>@sale.ProductName</td>
-						<td>USD $@sale.FinalPrice</td>
-						<td>@sale.SoldOn</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination">
-				@if (ViewBag.Page > 1) {
-					<li class="page-item"><a class="page-link" href="/?page=@(ViewBag.Page - 1)&limit=@(ViewBag.Limit)">Previous</a></li>
-				} 
-				
-				@if (Model.TotalPages > ViewBag.Page) {
-					<li class="page-item"><a class="page-link" href="/?page=@(ViewBag.Page + 1)&limit=@(ViewBag.Limit)">Next</a></li>
-				}
-			</ul>
-		</nav>
-	}
-	else
-	{
-		<h2>No products found.</h2>
-	}
-</div>
+			}
+		</tbody>
+	</table>
+	<nav aria-label="Page navigation example">
+		<ul class="pagination">
+			@if (ViewBag.Page > 1)
+			{
+				<li class="page-item"><a class="page-link" href="/?page=@(ViewBag.Page - 1)&limit=@(ViewBag.Limit)">Previous</a></li>
+			}
+
+			@if (Model.TotalPages > ViewBag.Page)
+			{
+				<li class="page-item"><a class="page-link" href="/?page=@(ViewBag.Page + 1)&limit=@(ViewBag.Limit)">Next</a></li>
+			}
+		</ul>
+	</nav>
+}
+else
+{
+	<h2>No products found.</h2>
+}
+
 
 
